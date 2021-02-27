@@ -1,0 +1,9 @@
+fastapi[all]
+fastapi-jwt-auth
+psycopg2
+SQLAlchemy
+python-multipart
+python-jose[cryptography]
+passlib
+bcrypt
+fastapi_quickstart==0.3
