@@ -7,3 +7,4 @@ python-jose[cryptography]
 passlib
 bcrypt
 fastapi_quickstart==0.3
+python-dotenv
