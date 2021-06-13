@@ -1,6 +1,8 @@
 from fastapi_quickstart import init_db
 import os
+import dotenv
 
+dotenv.load_dotenv("./api/.env",verbose=True)
 dbhost = os.environ["POSTGRE_HOSTNAME"]
 dbport = os.environ["POSTGRE_PORT_NO"]
 dbuser = os.environ["POSTGRE_USERNAME"]
