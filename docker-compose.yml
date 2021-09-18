@@ -1,0 +1,39 @@
+version: "3"
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+  web:
+    container_name: fastapi-services
+    build: .
+    environment:
+      POSTGRE_HOSTNAME: pg_container
+      POSTGRE_PORT_NO: 5432
+      POSTGRE_DBNAME: test_db
+      POSTGRE_USERNAME: root
+      POSTGRE_PWD: root
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn api.main:app --host=0.0.0.0 --port=14000 '
+    ports:
+      - "14000:14000"
+    volumes:
+      - .:/home/code
+    links:
+      - db
